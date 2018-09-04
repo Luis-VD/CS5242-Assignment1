@@ -41,18 +41,7 @@ def first_network_iterate(weights, biases):
 
     return layer_three
 
-def arrange_to_csv(name, array_to_write, grads):
-    object_length = len(array_to_write)
-    for l in range(1, object_length):
-        dw = grads[str(l)].T
-        write_to_csv(name[0], dw)
-        db = grads[str(l)].T
-        write_to_csv(name[1], db)
 
-
-def write_to_csv(name, arr):
-    with open(name, 'ab') as f:
-        np.savetxt(f, arr, delimiter=",")  # To write CSV files comma delimited
 
 def init_weights(weights):
     comprised_weights = []
@@ -104,10 +93,10 @@ def refine_weights_biases (weights, biases, initial_output, name):
                 if new_cost <= original_cost:
                     original_cost = new_cost
                     refined_weights[row][column] += 0.001
-                    print(new_cost)
+                    #print(new_cost)
                 else:
                     refined_weights[row][column] -= 0.002
-                    print('subtracting to weight')
+                    #print('subtracting to weight')
                     break
 
 
@@ -119,7 +108,7 @@ def refine_weights_biases (weights, biases, initial_output, name):
                     refined_weights[row][column] -= 0.001
                 else:
                     break
-    np.savetxt("../"+name+"-w.csv", np.transpose(refined_weights), delimiter=",")
+    np.savetxt("../"+name+"-w.csv", refined_weights, delimiter=",")
 
     for row in range(0, 5):
         refined_biases[row] += 0.001
@@ -141,7 +130,8 @@ def refine_weights_biases (weights, biases, initial_output, name):
                 refined_biases[row] -= 0.001
             else:
                 break
-    np.savetxt("../"+name+"-b.csv", np.transpose(refined_biases), delimiter=",")
+    print(new_cost)
+    np.savetxt("../"+name+"-b.csv", refined_biases, delimiter=",")
 
 
     print(refined_weights, refined_biases)
@@ -164,4 +154,24 @@ if __name__ == '__main__':
     initial_weights = init_weights(a_weights)
     initial_biases = init_biases(a_bias)
     refine_weights_biases(initial_weights, initial_biases, first_network_output, 'a')
+
+    first_network_output = first_network_iterate(b_weights, b_bias)
+    initial_weights = init_weights(b_weights)
+    initial_biases = init_biases(b_bias)
+    refine_weights_biases(initial_weights, initial_biases, first_network_output, 'b')
+
+    first_network_output = first_network_iterate(c_weights, c_bias)
+    initial_weights = init_weights(c_weights)
+    initial_biases = init_biases(c_bias)
+    refine_weights_biases(initial_weights, initial_biases, first_network_output, 'c')
+
+    first_network_output = first_network_iterate(d_weights, d_bias)
+    initial_weights = init_weights(d_weights)
+    initial_biases = init_biases(d_bias)
+    refine_weights_biases(initial_weights, initial_biases, first_network_output, 'd')
+
+    first_network_output = first_network_iterate(e_weights, e_bias)
+    initial_weights = init_weights(e_weights)
+    initial_biases = init_biases(e_bias)
+    refine_weights_biases(initial_weights, initial_biases, first_network_output, 'e')
 

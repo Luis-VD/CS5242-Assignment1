@@ -73,7 +73,7 @@ def grads_csv(name, layers_dims, grads):
         array_to_file(name[1], db)
 
 
-def verify_nn_1():
+def network_one_verify():
     layers_dims = [14, 100, 40, 4]  # network1
     x_from_txt, y_from_txt = data_txt()
     parameters = parameters_form(weight_100, bias_100, layers_dims)
@@ -82,7 +82,7 @@ def verify_nn_1():
     grads_csv(name, layers_dims, grads)
 
 
-def verify_nn_2():
+def network_two_verify():
     layers_dims = [14, 28, 28, 28, 28, 28, 28, 4]  # network2
     X, Y = data_txt()
     parameters = parameters_form(weight_28, bias_28, layers_dims)
@@ -91,7 +91,7 @@ def verify_nn_2():
     grads_csv(name, layers_dims, grads)
 
 
-def verify_nn_3():
+def network_three_verify():
     layers_dims = [14]  # network3
     for i in range(28):
         layers_dims.append(14)
@@ -104,8 +104,8 @@ def verify_nn_3():
     grads_csv(name, layers_dims, grads)
 
 
-verify_nn_1()
+if __name__ == '__main__':
 
-verify_nn_2()
-
-verify_nn_3()
+    network_one_verify()
+    network_two_verify()
+    network_three_verify()
